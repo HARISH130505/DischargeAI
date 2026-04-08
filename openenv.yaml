@@ -1,0 +1,10 @@
+name: DischargeAI
+version: 1.0.0
+description: "A clinical decision-making environment for hospital discharge planning."
+tasks:
+  - name: EASY
+    description: "Stable patient with good home support."
+  - name: MEDIUM
+    description: "Stable patient with high fall risk and poor home support."
+  - name: HARD
+    description: "Patient with borderline clinical status requiring observation."
