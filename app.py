@@ -1,8 +1,8 @@
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
 from typing import Optional, Any, Dict
-from env.environment import DischargeAIEnv
-from env.models import Action
+from engine.environment import DischargeAIEnv
+from engine.models import Action
 
 app = FastAPI(title="DischargeAI Environment API")
 
