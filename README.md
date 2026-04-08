@@ -36,5 +36,8 @@ python inference.py
 
 ### OpenEnv Validation
 Use the provided `validate-submission.sh` script against your HF Space.
-1. Push this repository to a Hugging Face Space using Docker template.
-2. Run validation script with your HF space URL.
+1. Push this repository to a Hugging Face Space using the Docker template.
+2. In your Space **Settings**, add the following:
+    *   **Secret**: `HF_TOKEN` (Your Hugging Face API key)
+    *   **Variable**: `MODEL_NAME` with value `gpt-4o-mini`
+3. Once the build is complete and the Space is "Running", run the validation script with your HF space URL.
