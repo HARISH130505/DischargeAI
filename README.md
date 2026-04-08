@@ -1,3 +1,13 @@
+---
+title: DischargeAI
+emoji: 🏥
+colorFrom: red
+colorTo: blue
+sdk: docker
+app_file: app.py
+pinned: false
+---
+
 # DischargeAI: Safe Patient Transition Environment
 
 DischargeAI is a hospital discharge planning simulation where an AI agent decides whether to 'discharge', 'keep', or 'refer' a patient based on their condition, progression, and external factors like home support. This tests the agent's ability to balance patient safety, efficiency, and context-awareness.
