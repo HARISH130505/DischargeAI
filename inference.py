@@ -7,7 +7,7 @@ from openai import OpenAI
 
 API_BASE_URL = os.getenv("API_BASE_URL", "https://router.huggingface.co/v1")
 MODEL_NAME = os.getenv("MODEL_NAME", "meta-llama/Llama-3.1-8B-Instruct")
-API_KEY = os.getenv("HF_TOKEN") or os.getenv("API_KEY")
+HF_TOKEN = os.getenv("HF_TOKEN")
 
 TASK_NAME = os.getenv("TASK_NAME", "EASY")
 BENCHMARK = "DischargeAI"
@@ -93,8 +93,8 @@ def get_model_message(client: OpenAI, step: int, obs: Dict[str, Any], last_rewar
         return "fallback", None, err_msg
 
 def main():
-    print(f"[DEBUG] Using model={MODEL_NAME} base_url={API_BASE_URL} api_key={'SET' if API_KEY else 'MISSING'}", flush=True)
-    client = OpenAI(base_url=API_BASE_URL, api_key=API_KEY)
+    print(f"[DEBUG] Using model={MODEL_NAME} base_url={API_BASE_URL} api_key={'SET' if HF_TOKEN else 'MISSING'}", flush=True)
+    client = OpenAI(base_url=API_BASE_URL, api_key=HF_TOKEN)
     
     history: List[str] = []
     rewards: List[float] = []
