@@ -1,0 +1,20 @@
+[project]
+name = "discharge-ai"
+version = "1.0.0"
+description = "Hospital Discharge Planning Environment - OpenEnv Competition"
+requires-python = ">=3.10"
+dependencies = [
+    "fastapi",
+    "uvicorn",
+    "pydantic",
+    "openai",
+    "requests",
+]
+
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.backends.legacy:build"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["engine*"]
