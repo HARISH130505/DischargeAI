@@ -49,5 +49,5 @@ Use the provided `validate-submission.sh` script against your HF Space.
 1. Push this repository to a Hugging Face Space using the Docker template.
 2. In your Space **Settings**, add the following:
     *   **Secret**: `HF_TOKEN` (Your Hugging Face API key)
-    *   **Variable**: `MODEL_NAME` with value `gpt-4o-mini`
+    *   **Variable**: `MODEL_NAME` with value `Qwen/Qwen2.5-72B-Instruct`
 3. Once the build is complete and the Space is "Running", run the validation script with your HF space URL.
