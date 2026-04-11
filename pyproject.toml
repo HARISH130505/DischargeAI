@@ -4,12 +4,16 @@ version = "1.0.0"
 description = "Hospital Discharge Planning Environment - OpenEnv Competition"
 requires-python = ">=3.10"
 dependencies = [
-    "fastapi",
-    "uvicorn",
-    "pydantic",
-    "openai",
-    "requests",
+    "fastapi>=0.100.0",
+    "uvicorn>=0.20.0",
+    "pydantic>=2.0.0",
+    "openai>=1.0.0",
+    "requests>=2.28.0",
+    "openenv-core>=0.2.0",
 ]
+
+[project.scripts]
+server = "server.app:start"
 
 [build-system]
 requires = ["setuptools>=61.0"]
@@ -17,4 +21,4 @@ build-backend = "setuptools.backends.legacy:build"
 
 [tool.setuptools.packages.find]
 where = ["."]
-include = ["engine*"]
+include = ["engine*", "server*"]
