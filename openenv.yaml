@@ -1,10 +1,31 @@
 name: DischargeAI
-version: 1.0.0
-description: "A clinical decision-making environment for hospital discharge planning."
+version: "1.0.0"
+description: "A clinical decision-making environment for safe hospital discharge planning."
+tags:
+  - healthcare
+  - clinical-decision
+
 tasks:
-  - name: EASY
-    description: "Stable patient with good home support."
-  - name: MEDIUM
-    description: "Stable patient with high fall risk and poor home support."
-  - name: HARD
-    description: "Patient with borderline clinical status requiring observation."
+  - id: EASY
+    name: EASY
+    description: "Stable post-appendectomy patient with full home support. Correct action: discharge."
+    difficulty: easy
+    max_steps: 5
+    score_range: [0.0, 1.0]
+    grader: "engine.reward:calculate_reward"
+
+  - id: MEDIUM
+    name: MEDIUM
+    description: "Hip replacement patient with high fall risk and limited home support. Correct action: refer."
+    difficulty: medium
+    max_steps: 5
+    score_range: [0.0, 1.0]
+    grader: "engine.reward:calculate_reward"
+
+  - id: HARD
+    name: HARD
+    description: "COPD patient with borderline vitals and poor home setup. Correct action: keep then discharge."
+    difficulty: hard
+    max_steps: 5
+    score_range: [0.0, 1.0]
+    grader: "engine.reward:calculate_reward"
