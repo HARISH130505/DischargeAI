@@ -1,4 +1,5 @@
 from fastapi import FastAPI, HTTPException
+from fastapi.responses import HTMLResponse
 from pydantic import BaseModel
 from typing import Optional, Any, Dict
 from engine.environment import DischargeAIEnv
@@ -8,6 +9,14 @@ app = FastAPI(title="DischargeAI Environment API")
 
 # Global environment state (acceptable for typical OpenEnv standalone Docker evaluation)
 env_instance = DischargeAIEnv()
+
+@app.get("/", response_class=HTMLResponse)
+def root():
+    return """
+    <h1>🚀 DischargeAI API is Live</h1>
+    <p>Your backend is running successfully.</p>
+    <p>Go to <a href="/docs">/docs</a> to test the API.</p>
+    """
 
 class ResetRequest(BaseModel):
     task: str = "EASY"
@@ -27,7 +36,6 @@ def reset(req: Optional[ResetRequest] = None):
 @app.post("/step")
 def step(req: StepRequest):
     try:
-        # Validate action
         action_obj = Action(**req.action)
         result = env_instance.step(action_obj)
         return {
@@ -43,6 +51,9 @@ def step(req: StepRequest):
 def state():
     try:
         obs = env_instance.state()
-        return {"observation": obs.dict(), "done": env_instance.step_count >= env_instance.max_steps}
+        return {
+            "observation": obs.dict(),
+            "done": env_instance.step_count >= env_instance.max_steps
+        }
     except Exception as e:
         raise HTTPException(status_code=400, detail=str(e))
