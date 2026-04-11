@@ -6,7 +6,7 @@ from typing import List, Optional, Any, Dict
 from openai import OpenAI
 
 API_BASE_URL = os.getenv("API_BASE_URL", "https://router.huggingface.co/v1")
-MODEL_NAME = os.getenv("MODEL_NAME", "Qwen/Qwen2.5-72B-Instruct")
+MODEL_NAME = os.getenv("MODEL_NAME", "meta-llama/Llama-3.1-8B-Instruct")
 API_KEY = os.getenv("HF_TOKEN") or os.getenv("API_KEY")
 
 TASK_NAME = os.getenv("TASK_NAME", "EASY")
@@ -93,6 +93,7 @@ def get_model_message(client: OpenAI, step: int, obs: Dict[str, Any], last_rewar
         return "fallback", None, err_msg
 
 def main():
+    print(f"[DEBUG] Using model={MODEL_NAME} base_url={API_BASE_URL} api_key={'SET' if API_KEY else 'MISSING'}", flush=True)
     client = OpenAI(base_url=API_BASE_URL, api_key=API_KEY)
     
     history: List[str] = []
