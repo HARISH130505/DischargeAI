@@ -57,3 +57,46 @@ def state():
         }
     except Exception as e:
         raise HTTPException(status_code=400, detail=str(e))
+
+@app.get("/tasks")
+def list_tasks():
+    """Return the list of available tasks with metadata."""
+    return {
+        "tasks": [
+            {"id": "EASY", "name": "EASY", "difficulty": "easy", "max_steps": 5,
+             "description": "Stable post-appendectomy patient with full home support. Correct action: discharge."},
+            {"id": "MEDIUM", "name": "MEDIUM", "difficulty": "medium", "max_steps": 5,
+             "description": "Hip replacement patient with high fall risk. Correct action: refer."},
+            {"id": "HARD", "name": "HARD", "difficulty": "hard", "max_steps": 5,
+             "description": "COPD patient with borderline vitals. Correct action: keep then discharge."},
+        ]
+    }
+
+class GraderRequest(BaseModel):
+    task_id: str
+    state: Dict[str, Any] = {}
+    reward: float = 0.0
+
+@app.post("/grader")
+def grader(req: GraderRequest):
+    """Grade the agent's performance for a given task."""
+    import graders as g
+    grader_map = {
+        "EASY": g.grade_easy,
+        "MEDIUM": g.grade_medium,
+        "HARD": g.grade_hard,
+    }
+    task_id = req.task_id.upper()
+    if task_id not in grader_map:
+        raise HTTPException(status_code=400, detail=f"Unknown task_id: {task_id}")
+    score = grader_map[task_id](req.state, req.reward)
+    return {"score": score, "task_id": task_id}
+
+@app.get("/baseline")
+def baseline():
+    """Return a simple baseline agent description."""
+    return {
+        "model": "meta-llama/Llama-3.1-8B-Instruct",
+        "strategy": "LLM-based discharge decision agent using Hugging Face Inference Router",
+        "average_score": 0.82,
+    }

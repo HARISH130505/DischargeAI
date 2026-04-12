@@ -1,37 +1,43 @@
+spec_version: 1
 name: DischargeAI
-version: "1.0.0"
+type: space
+runtime: fastapi
+app: server.app:app
+port: 7860
 description: "A clinical decision-making environment for safe hospital discharge planning."
 tags:
   - healthcare
   - clinical-decision
 
+endpoints:
+  reset: "/reset"
+  step: "/step"
+  state: "/state"
+  tasks: "/tasks"
+  grader: "/grader"
+  baseline: "/baseline"
+
 tasks:
   - id: EASY
-    name: EASY
+    name: "EASY"
     description: "Stable post-appendectomy patient with full home support. Correct action: discharge."
     difficulty: easy
     max_steps: 5
-    grader: "graders:grade_easy"
-    reward_range:
-      - 0.0
-      - 1.0
+    score_range: [0.0, 1.0]
+    grader: "graders.grade_easy"
 
   - id: MEDIUM
-    name: MEDIUM
+    name: "MEDIUM"
     description: "Hip replacement patient with high fall risk and limited home support. Correct action: refer."
     difficulty: medium
     max_steps: 5
-    grader: "graders:grade_medium"
-    reward_range:
-      - 0.0
-      - 1.0
+    score_range: [0.0, 1.0]
+    grader: "graders.grade_medium"
 
   - id: HARD
-    name: HARD
+    name: "HARD"
     description: "COPD patient with borderline vitals and poor home setup. Correct action: keep then discharge."
     difficulty: hard
     max_steps: 5
-    grader: "graders:grade_hard"
-    reward_range:
-      - 0.0
-      - 1.0
+    score_range: [0.0, 1.0]
+    grader: "graders.grade_hard"
